@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* External CSS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.collapsible-content.expanded {
+    max-height: 1000px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.arrow {
+    width: 10px;
+    height: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+.arrow-1 {
+    transform: rotate(30deg)
+}
+
+.arrow-2 {
+    transform: rotate(-30deg)
+}
+
+.reversed .arrow-1 {
+    transform: rotate(-30deg)
+}
+
+.reversed .arrow-2 {
+    transform: rotate(30deg)
+}
+.table-wrapper {
+    overflow-x: auto;
+}
+table {
+    table-layout: fixed;
+}
+

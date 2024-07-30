@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Logs = () => {
-  const [darkMode, setDarkMode] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [logs, setLogs] = useState([]);
@@ -13,12 +12,7 @@ const Logs = () => {
   const location = useLocation();
   const currentUrl = window.location.href;
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      setDarkMode(storedTheme === "dark");
-    }
-  }, []);
+
 
   useEffect(() => {
     const updateLogs = () => {
@@ -57,38 +51,14 @@ const Logs = () => {
     }
   }, [search, filter, navigate]);
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-  };
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   const toggleDetails = (index) => {
     console.log(`Toggling details for row: ${index}`);
     setExpandedRow(expandedRow === index ? null : index);
   };
 
-  const toggleTheme = () => {
-    const html = document.documentElement;
-    let savedTheme = localStorage.getItem("theme");
-
-    if (!savedTheme) {
-      savedTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-
-    html.classList.toggle("dark");
-    const newTheme = html.classList.contains("dark") ? "dark" : "light";
-    localStorage.setItem("theme", newTheme);
-    setDarkMode(newTheme === "dark");
-  };
+  
 
   useEffect(() => {
     fetchLog();
@@ -109,53 +79,7 @@ const Logs = () => {
   };
 
   return (
-    <div
-      className={`bg-gray-100 ${
-        darkMode ? "dark" : ""
-      } dark:bg-[#212122] dark:text-white min-h-screen overflow-y-auto`}
-    >
-      <div className="w-full max-h-screen">
-        <div className="container mx-auto p-4 h-full w-full">
-          <div className="rounded-lg shadow-md p-4 dark:bg-[#2b2b2b] h-full max-w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-xl font-semibold text-blue-500">V-logs</h1>
-              <form onSubmit={handleSubmit} className="flex space-x-2">
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Search logs..."
-                  value={search}
-                  onChange={handleSearchChange}
-                  className="px-3 py-1 border rounded dark:bg-[#212122]"
-                />
-                <select
-                  name="filter"
-                  value={filter}
-                  onChange={handleFilterChange}
-                  className="px-3 py-1 border rounded dark:bg-[#212122]"
-                >
-                  <option value="all">All Levels</option>
-                  <option value="info">Info</option>
-                  <option value="error">Error</option>
-                  <option value="warn">Warn</option>
-                </select>
-                <button
-                  type="submit"
-                  className="px-3 py-1 bg-blue-500 text-white rounded"
-                >
-                  Search
-                </button>
-                <div className="flex items-center">
-                  <span
-                    className="material-symbols-outlined cursor-pointer"
-                    onClick={toggleTheme}
-                  >
-                    {darkMode ? "dark_mode" : "light_mode"}
-                  </span>
-                </div>
-              </form>
-            </div>
-
+    <div>    
             <div className="table-wrapper w-full">
               <table className="w-full text-sm">
                 <thead>
@@ -174,15 +98,12 @@ const Logs = () => {
                       <tr
                         id={`row-${index}`}
                         className={`border-t cursor-pointer hover:bg-gray-50 dark:hover:bg-[#212122] ${
-                          expandedRow === index
-                            ? "expanded" : ""
+                          expandedRow === index ? "expanded" : ""
                         }`}
                         onClick={() => toggleDetails(index)}
                       >
                         <td className="py-2">
-                          <span
-                            className={`bg-${log?.request?.method.toLowerCase()}-100 text-${log?.request?.method.toLowerCase()}-800 border border-${log?.request?.method.toLowerCase()}-800 px-2 py-1 rounded text-xs`}
-                          >
+                          <span className="bg-blue-100 text-blue-800 border border-blue-800 px-2 py-1 rounded text-xs">
                             {log?.request?.method}
                           </span>
                         </td>
@@ -211,9 +132,9 @@ const Logs = () => {
                           {new Date(log.timestamp).toLocaleString()}
                         </td>
                         <td>
-                        <div
+                          <div
                             className={`flex ${
-                              expandedRow === index ? "reversed" : ""
+                              expandedRow === index ? "expanded" : ""
                             }`}
                           >
                             <div className="bg-blue-500 arrow arrow-1"></div>
@@ -227,9 +148,7 @@ const Logs = () => {
                         }`}
                       >
                         <td colSpan="6" className="p-0">
-                          <div
-                            id={`details-${index}`}
-                          >
+                          <div id={`details-${index}`}>
                             <div className="p-4">
                               <h3 className="font-semibold mb-2">
                                 Request Details:
@@ -280,9 +199,6 @@ const Logs = () => {
               )}
             </div>
           </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

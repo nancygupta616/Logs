@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { logger, logError, logInfo, logWarning } = require('./utils/logger');
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 // Routes
 const app = express();
@@ -18,12 +19,29 @@ app.use(bodyParser.json());
 app.use('/logs', logsRoute);
 
 
+// Database Connection with MongoDB
+const uri =
+  "mongodb+srv://nancygupta1403:mongo1466@cluster0.acui1ho.mongodb.net/e-commerce";
+
+mongoose
+  .connect(uri)
+  .then(() => console.log("Database connected!"))
+  .catch((error) => console.error("Database connection error:", error));
+  
 app.get('/', (req, res) => {
     logError("here is error", req, res, 500);
     logInfo("here is info", req, res, 200);
     logWarning("here is warning", req, res, 400);
     res.status(200).send("started");
 });
+
+// Schema for creating user model
+const Users = mongoose.model("Users", {
+    name: { type: String },
+    email: { type: String, unique: true },
+    password: { type: String },
+    date: { type: Date, default: Date.now() },
+  });
 
 // creating endpoint for user login
 app.post("/login", async (req, res) => {

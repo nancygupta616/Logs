@@ -14,30 +14,39 @@ const Login = () => {
 
   const login = async () => {
     console.log("Login Func", formData);
-    let responseData;
-    await fetch(`${process.env.REACT_APP_API_URL}/login`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => (responseData = data));
-
-    if (responseData.success) {
-      localStorage.setItem("auth-token", responseData.token);
-      window.location.replace("/");
-    } else {
-      alert(responseData.errors);
+    try {
+      const response = await fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+  
+      if (responseData.success) {
+        localStorage.setItem("auth-token", responseData.token);
+        window.location.replace("/logs");
+      } else {
+        alert(responseData.errors);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
+  
 
   const signup = async () => {
     console.log("SignUp Func", formData);
     let responseData;
-    await fetch(`${process.env.REACT_APP_API_URL}/signup`, {
+    await fetch("http://localhost:5000/signup", {
       method: "POST",
       headers: {
         Accept: "application/json",

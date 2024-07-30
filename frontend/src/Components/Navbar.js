@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
+
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -79,6 +81,22 @@ const Navbar = () => {
               >
                 Search
               </button>
+              <div className="nav-login-cart">
+                {localStorage.getItem("auth-token") ? (
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("auth-token");
+                      window.location.replace("/");
+                    }}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/">
+                    <button>Login</button>
+                  </Link>
+                )}
+              </div>
               <div className="flex items-center">
                 <span
                   className="material-symbols-outlined cursor-pointer"

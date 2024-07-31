@@ -8,6 +8,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 
 
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
+}
+
+.navbar {
+  padding: 1rem;
+  background-color: var(--navbar-bg);
+  color: var(--navbar-color);
+}
+
+.light .navbar {
+  --navbar-bg: #f8f9fa;
+  --navbar-color: #343a40;
+}
+
+.dark .navbar {
+  --navbar-bg: #343a40;
+  --navbar-color: #f8f9fa;
+}
+
 
 .collapsible-content {
   display: none;

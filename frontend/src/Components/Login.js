@@ -23,13 +23,13 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const responseData = await response.json();
-  
+
       if (responseData.success) {
         localStorage.setItem("auth-token", responseData.token);
         window.location.replace("/logs");
@@ -41,7 +41,6 @@ const Login = () => {
       alert("An error occurred. Please try again.");
     }
   };
-  
 
   const signup = async () => {
     console.log("SignUp Func", formData);
@@ -66,8 +65,8 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-blue-100 pt-24">
-      <div className="w-11/12 max-w-lg bg-white mx-auto p-8 box-border">
+    <div className="w-full min-h-screen bg-blue-100 flex items-center justify-center">
+      <div className="w-full max-w-lg bg-white mx-5 p-8 box-border">
         <h1 className="my-4 text-2xl font-semibold">{state}</h1>
         <div className="flex flex-col gap-6 mt-5">
           {state === "Sign Up" && (

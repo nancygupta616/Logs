@@ -1,19 +1,13 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
-import Login from "./Components/Login";
-import Logs from "./Components/Logs";
-import Navbar from "./Components/Navbar";
+import Logs from "./Pages/Logs";
 
-function App() {
+
+const App = () => {
   return (
     <div>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/logs" element={<Logs />} />
-      </Routes>
+      <Logs />
     </div>
   );
-}
+};
 
 export default App;

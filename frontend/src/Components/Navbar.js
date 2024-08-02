@@ -18,8 +18,8 @@ const Navbar = ({ theme, toggleTheme }) => {
   };
 
   return (
-    <div className="flex justify-between items-center shadow-sm py-4 px-16 md:px-10 sm:px-5">
-      <p className="text-2xl font-semibold text-gray-900 sm:text-xl">V-logs</p>
+    <div className="flex justify-between items-center shadow-sm py-4 px-16 md:px-10 sm:px-5  bg-white dark:bg-black dark:text-white">
+      <p className="text-2xl font-semibold text-gray-900 sm:text-xl dark:text-white">V-logs</p>
       <form onSubmit={handleSubmit} className="flex space-x-2">
         <input
           type="text"

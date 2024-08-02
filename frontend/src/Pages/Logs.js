@@ -10,6 +10,7 @@ const Logs = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
   const location = useLocation();
 
+
   useEffect(() => {
     const html = document.documentElement;
     if (theme === "dark") {
@@ -20,24 +21,33 @@ const Logs = () => {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
+
   return (
-    <div className={`container ${theme}`}>
+    <div className={`${theme} w-full dark:bg-black`}>
       {location.pathname === "/logs" && (
         <>
           <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <Sidebar />
+          <div className="flex">
+            <Sidebar className="w-2/5" />
+            <div className="flex-grow">
+              <Routes>
+                <Route path="/logs" element={<DisplayLogs />} />
+              </Routes>
+            </div>
+          </div>
         </>
       )}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/logs" element={<DisplayLogs />} />
       </Routes>
     </div>
   );
 }
+
 
 export default Logs;

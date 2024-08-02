@@ -77,7 +77,7 @@ const DisplayLogs = () => {
 
   return (
     <div>
-      <div className="table-wrapper w-full">
+      <div className="table-wrapper w-full  bg-white dark:bg-black dark:text-white">
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-gray-600 dark:text-gray-100">
